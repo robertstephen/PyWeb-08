@@ -1,11 +1,10 @@
 import datetime
-
-from django.test import TestCase
 from django.contrib.auth.models import User
+from django.test import TestCase
 from django.utils.timezone import utc
 
-from .models import Category
-from .models import Post
+from myblog.models import Category
+from myblog.models import Post
 
 
 class PostTestCase(TestCase):
@@ -22,6 +21,7 @@ class PostTestCase(TestCase):
 
 
 class CategoryTestCase(TestCase):
+
     def test_string_representation(self):
         expected = "A Category"
         c1 = Category(name=expected)
@@ -51,9 +51,7 @@ class FrontEndTestCase(TestCase):
         resp = self.client.get('/')
         # the content of the rendered response is always a bytestring
         resp_text = resp.content.decode(resp.charset)
-
-        self.assertIn("Recent Posts", resp_text)
-
+        self.assertTrue("Recent Posts" in resp_text)
         for count in range(1, 11):
             title = "Post %d Title" % count
             if count < 6:

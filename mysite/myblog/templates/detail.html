@@ -1,16 +1,17 @@
-<!-- TODO: extend base.html -->
+{% extends "base.html" %}
 
-<!-- TODO: wrap all of this content inside a "content" block -->
+{% block content %}
 <a class="backlink" href="/">Home</a>
-<h1><!-- TODO: Provide the post's title --></h1>
+<h1>{{ post }}</h1>
 <p class="byline">
-  <!-- TODO: Provide a by line (post author and date) -->
+  Posted by {{ post.author_name }} &mdash; {{ post.published_date }}
 </p>
 <div class="post-body">
-  <!-- TODO: Provide the post body -->
+  {{ post.text }}
 </div>
 <ul class="categories">
-  <!-- TODO: Make a list item for each post category that belongs to this post -->
-    <li><!-- TODO: put category here --></li>
+  {% for category in post.categories.all %}
+    <li>{{ category }}</li>
+  {% endfor %}
 </ul>
-
+{% endblock %}
