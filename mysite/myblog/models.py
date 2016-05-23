@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib import admin
 
 
 class Post(models.Model):
@@ -25,3 +26,26 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+class DetailInline(admin.TabularInline):
+    model = Category.posts.through
+
+class PostAdmin(models.Model):
+    inlines = [
+        DetailInline,
+    ]
+
+    def __str__(self):
+        return self.title
+
+class CategoryAdmin(models.Model):
+    inlines = [
+        DetailInline,
+    ]
+    exclude = ('posts',)
+
+    def __str__(self):
+        return self.name
+
+
+
