@@ -4,7 +4,7 @@ from myblog.models import Post
 
 class PostFeed(Feed):
     title = "Post_RSS"
-    link = "localhost:8000/post/feed/"
+    link = "/post/feed/"
     description = "Post RSS View"
 
     def items(self):
