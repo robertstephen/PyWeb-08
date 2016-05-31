@@ -4,19 +4,18 @@ from myblog.models import Post
 
 class PostFeed(Feed):
     title = "Post_RSS"
-    link = "/postrss/"
+    link = "localhost:8000/post/feed/"
     description = "Post RSS View"
 
     def items(self):
-        return Post.objects.order_by(self.created_date)
-# [:5]
+        return Post.objects.order_by('-created_date')[:5]
 
-    def item_title(self):
-        return self.title
+    def item_title(self, item):
+        return item.title
 
-    def item_description(self):
-        return self.text
+    def item_description(self, item):
+        return item.text
 
     # item_link is only needed if NewsItem has no get_absolute_url method.
-    def item_link(self):
-        return reverse('blog_detail', kwargs={'post_id': self.id})  
+    def item_link(self, item):
+        return reverse('blog_detail', kwargs={'post_id': item.id})
